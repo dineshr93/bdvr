@@ -65,3 +65,7 @@ universal-startfile = "^0.1.3"
 ## Issues
 
 Please send your bugs to dineshr93@gmail.com
+
+## License
+
+[MIT](README.md)
