@@ -68,4 +68,4 @@ Please send your bugs to dineshr93@gmail.com
 
 ## License
 
-[MIT](README.md)
+[MIT](LICENSE)
