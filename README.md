@@ -12,9 +12,13 @@ The current blackduck generates multiple reports. To fulfill above requirement o
 
 1. Produces customized report where we can see vulnerability, OSS name, affected source path details all in one report
 2. Color coded
+
    low risk = no color
+
    medium risk = Yellow
+
    High risk = Red
+
 3. Omits all other files which has no vulnerabilities.
 
 ### Prerequiites:

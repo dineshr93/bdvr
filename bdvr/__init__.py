@@ -1,4 +1,4 @@
-__version__ = "0.2.0"
+__version__ = "0.9.0"
 import os
 from os import listdir
 from os.path import isfile, join, exists
@@ -16,16 +16,11 @@ def main():
 
     print = echo
 
-    this_dir = Path(globals().get("__file__", "./_")).absolute().parent
-    # pathlib.Path.cwd()
-
-    # command line process
-    # python3 prescan_processor_Asterix.py -s AED_EB_1_0_BPAG_2021-06-15_0046 -p /ssd3/dira271641 -w bpag_ws
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
         "-p",
-        help="Blackduck report folder is ex: D:\BD_REPORT\PROJECT_DATETIMESTAMP.zip",
+        help="Blackduck report zip file is ex: D:\BD_REPORT\PROJECT_DATETIMESTAMP.zip",
         required=True,
     )
     parser.add_argument(
@@ -53,7 +48,8 @@ def main():
     if ".zip" not in bdreportszip:
         print("Its not a zip file", bdreportszip, fg="red")
         sys.exit()
-
+    full_file_path = Path("README.md").absolute()
+    this_dir = Path(full_file_path).parent.__str__()
     filelocation = ""
 
     if "\\" in bdreportszip or "/" in bdreportszip:
@@ -68,14 +64,12 @@ def main():
             else bdreportszip.rsplit("/", 1)[1]
         )
     else:
-        filelocation = this_dir.__str__()
+        filelocation = this_dir
         filename = bdreportszip
-
-    # print(f"{filelocation=}")
 
     filename = filename.replace(".zip", "")
     shutil.unpack_archive(bdreportszip, filelocation)
-    # pjname=mypath.rsplit('\\', 1)[1] if len(mypath.rsplit('\\', 1)[1])>0 else mypath.rsplit('/', 1)[1]
+
     mypath = filelocation + os.path.sep + filename
 
     print(f"{filelocation=}", fg="vgreen")
@@ -201,7 +195,7 @@ def main():
         print("Output Excel File Not there", fg="red")
         sys.exit()
     output_file = join(mypath, xlsx_f)
-    print("Check the output in: " + output_file, fg="vblack", bg="red")
+    print("Check the output in: " + output_file, fg="vmagenta")
 
     if open_file:
         startfile(output_file)
