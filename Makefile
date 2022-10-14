@@ -39,14 +39,24 @@ pubtest: build publish
 	pip uninstall -y bdvr
 	pip install bdvr==${v}
 	pip install bdvr==${v}
-	bdvr -p ${f}
+	bdvr -h
+	# bdvr -p ${f}
 
-test:
+testrem:
 	echo "===========Testing... make sure command is ->make test v=0.8.0 f=FILE==============="
 	pip uninstall -y bdvr
 	pip install bdvr==${v}
 	pip install bdvr==${v}
-	bdvr -p ${f}
+	bdvr -h
+	# bdvr -p ${f}
+test: build
+	echo "===========Testing... make sure command is ->make test v=0.8.0 f=FILE==============="
+	pip uninstall -y bdvr
+	pip install dist/bdvr-0.9.1.tar.gz
+	pip install dist/bdvr-0.9.1.tar.gz
+	bdvr -h
+
+# bdvr -p ${f}
 
 clean:
 	${RM_RF_CMD} ${PROJ_DIST}/*

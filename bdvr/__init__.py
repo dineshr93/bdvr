@@ -2,7 +2,6 @@ __version__ = "0.9.0"
 import os
 from os import listdir
 from os.path import isfile, join, exists
-from turtle import color
 import pandas
 import argparse
 import shutil
