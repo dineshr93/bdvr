@@ -1,4 +1,4 @@
-__version__ = "0.9.1"
+__version__ = "0.9.2"
 import os
 from os import listdir
 from os.path import isfile, join, exists
@@ -8,7 +8,7 @@ import shutil
 from pathlib import Path
 import sys
 
-# from quo import echo
+
 from startfile import startfile
 
 
