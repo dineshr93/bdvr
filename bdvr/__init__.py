@@ -1,4 +1,4 @@
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 import os
 from os import listdir
 from os.path import isfile, join, exists
@@ -7,13 +7,14 @@ import argparse
 import shutil
 from pathlib import Path
 import sys
-from quo import echo
+
+# from quo import echo
 from startfile import startfile
 
 
 def main():
 
-    print = echo
+    # print = echo
 
     parser = argparse.ArgumentParser()
 
@@ -29,12 +30,12 @@ def main():
     args = parser.parse_args()
     bdreportszip = args.p
     open_file = args.o
-    print(f"{bdreportszip=}", fg="vcyan")
+    print(f"{bdreportszip=}")
 
     help_text = 'Go to Your Blackduck Project > Generate "Create Version detail report" > checkboxes "Source" and "Vulnerabilities" should be checked and Generate the report.'
 
     if not exists(bdreportszip):
-        print("File not exists", bdreportszip, fg="red")
+        print("File not exists", bdreportszip)
         sys.exit()
     if not isfile(bdreportszip):
         print(
@@ -42,10 +43,10 @@ def main():
             bdreportszip,
             err=True,
         )
-        print(help_text, fg="red")
+        print(help_text)
         sys.exit()
     if ".zip" not in bdreportszip:
-        print("Its not a zip file", bdreportszip, fg="red")
+        print("Its not a zip file", bdreportszip)
         sys.exit()
     full_file_path = Path("README.md").absolute()
     this_dir = Path(full_file_path).parent.__str__()
@@ -71,9 +72,9 @@ def main():
 
     mypath = filelocation + os.path.sep + filename
 
-    print(f"{filelocation=}", fg="vgreen")
-    print(f"{filename=}", fg="vgreen")
-    print(f"{mypath=}", fg="vgreen")
+    print(f"{filelocation=}")
+    print(f"{filename=}")
+    print(f"{mypath=}")
 
     exit
     os.chdir(mypath)
@@ -84,13 +85,11 @@ def main():
     isSecurityreportPresent = any(
         f for f in files_list if "security_" in f and ".csv" in f
     )
-    print("Checking files source_ amd security_ prefix are present..", fg="vyellow")
+    print("Checking files source_ amd security_ prefix are present..")
     if isSourcereportPresent and isSecurityreportPresent:
-        print("File with source_ amd security_ prefix are present", fg="vgreen")
+        print("File with source_ amd security_ prefix are present")
     else:
-        print(
-            "File with either of source_ amd security_ prefix are not present", fg="red"
-        )
+        print("File with either of source_ amd security_ prefix are not present")
         print(help_text)
         sys.exit()
 
@@ -114,8 +113,8 @@ def main():
     ]
     csv_f = filename + "-vulnerabilities.csv"
     xlsx_f = filename + "-vulnerabilities.xlsx"
-    print(onlyfile1, fg="vgreen")
-    print(onlyfile2, fg="vgreen")
+    print(onlyfile1)
+    print(onlyfile2)
 
     df1 = pandas.read_csv(onlyfile1[0])
     df2 = pandas.read_csv(onlyfile2[0])
@@ -191,10 +190,10 @@ def main():
     df.to_excel(xlsx_f)
 
     if not exists(xlsx_f):
-        print("Output Excel File Not there", fg="red")
+        print("Output Excel File Not there")
         sys.exit()
     output_file = join(mypath, xlsx_f)
-    print("Check the output in: " + output_file, fg="vmagenta")
+    print("Check the output in: " + output_file)
 
     if open_file:
         startfile(output_file)
