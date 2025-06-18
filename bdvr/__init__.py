@@ -1,4 +1,4 @@
-__version__ = "0.11.0"
+__version__ = "0.12.0"
 import os
 from os.path import isfile, join, exists
 import pandas
@@ -60,9 +60,6 @@ def main():
     parser.add_argument("project_name")
     parser.add_argument("version_name")
     parser.add_argument("-z", "--zip_file_name", default="reports.zip")
-    parser.add_argument("-r", "--reports",
-        default=",".join(all_reports), 
-        help=f"Comma separated list (no spaces) of the reports to generate - {list(version_name_map.keys())}. Default is all reports.")
     parser.add_argument('--format', default='CSV', choices=["CSV"], help="Report format - only CSV available for now")
     parser.add_argument('-t', '--tries', default=30, type=int, help="How many times to retry downloading the report, i.e. wait for the report to be generated")
     parser.add_argument('-s', '--sleep_time', default=10, type=int, help="The amount of time to sleep in-between (re-)tries to download the report")
@@ -73,8 +70,8 @@ def main():
 
     args = parser.parse_args()
         # Get environment variables
-    bd_url = os.getenv("BD_URL")
-    bd_token = os.getenv("BD_TOKEN")
+    bd_url = os.getenv("BD_URL").strip()
+    bd_token = os.getenv("BD_TOKEN").strip()
 
     # Check if either is empty or None
     if not bd_url or not bd_token:
@@ -127,7 +124,7 @@ def main():
 
     logging.debug(f"Found {project['name']}:{version['versionName']}")
 
-    reports_l = args.reports.split(",")
+    reports_l = ['source','vulnerabilities']
     reports_l = [version_name_map[r.lower()] for r in reports_l]
 
     post_data = {
