@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bdvr"
-version = "0.10.0"
+version = "0.11.0"
 description = "customized report generated from set of blackduck reports that gives 'color coded vulnerabilities', and 'source paths' including 'direct' and 'indirect dependencies' details all in one report"
 authors = ["dineshr93gmail.com"]
 license = "MIT"

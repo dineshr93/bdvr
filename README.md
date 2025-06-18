@@ -23,7 +23,10 @@ The current blackduck generates multiple reports. To fulfill above requirement o
 
 ### Prerequiites:
 
-Go to Your Blackduck Project > Generate 'Create Version detail report' > checkbox Source and Vulnerabilities checked.
+Export your environment variable (in linux)
+```sh
+export BD_URL="https://www.your_blackduck.com" && export BD_TOKEN="YOUR_API_TOKEN"
+```
 
 ## How to install
 
@@ -37,17 +40,32 @@ pip install bdvr
 ```sh
 
 
-usage:bdvr [-h] -p P [-o]
+bdvr -h
+usage: A program to create vulnerability reports for a given project-version [-h] [-z ZIP_FILE_NAME] [-r REPORTS] [--format {CSV}] [-t TRIES] [-s SLEEP_TIME] [--no-verify]
+                                                                             [-o]
+                                                                             project_name version_name
+
+positional arguments:
+  project_name
+  version_name
 
 options:
-  -h, --help  show this help message and exit
-  -p P        Blackduck report folder is ex: D:\BD_REPORT\PROJECT_DATETIMESTAMP.zip
-  -o          (Optional) To automatically open the file
-
-bdvr -p Blackduck_generated_reports.zip
+  -h, --help            show this help message and exit
+  -z ZIP_FILE_NAME, --zip_file_name ZIP_FILE_NAME
+  -r REPORTS, --reports REPORTS
+                        Comma separated list (no spaces) of the reports to generate - ['version', 'scans', 'components', 'vulnerabilities', 'source', 'cryptography',
+                        'license_terms', 'component_additional_fields', 'project_version_additional_fields', 'vulnerability_matches', 'upgrade_guidance',
+                        'license_conflicts']. Default is all reports.
+  --format {CSV}        Report format - only CSV available for now
+  -t TRIES, --tries TRIES
+                        How many times to retry downloading the report, i.e. wait for the report to be generated
+  -s SLEEP_TIME, --sleep_time SLEEP_TIME
+                        The amount of time to sleep in-between (re-)tries to download the report
+  --no-verify           disable TLS certificate verification
+  -o                    (Optional) To automatically open the file
 
 #To automatically open the file add -o option
-bdvr -p Blackduck_generated_reports.zip -o
+bdvr BD_PROJECT_NAME BD_PROJECT_VERSION
 
 ```
 

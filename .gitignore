@@ -5,3 +5,4 @@ reports
 reports.zip
 gr.py
 .pypirc
+bdvr/__pycache__

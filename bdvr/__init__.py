@@ -1,4 +1,4 @@
-__version__ = "0.10.0"
+__version__ = "0.11.0"
 import os
 from os.path import isfile, join, exists
 import pandas
@@ -54,11 +54,9 @@ def empty_directory(directory_path):
 
 def main():
 
-    # print = echo
 
-    parser = argparse.ArgumentParser("A program to create version detail reports for a given project-version")
-    parser.add_argument("bd_url", help="Hub server URL e.g. https://your.blackduck.url")
-    parser.add_argument("token_file", help="containing access token")
+
+    parser = argparse.ArgumentParser("A program to create vulnerability reports for a given project-version")
     parser.add_argument("project_name")
     parser.add_argument("version_name")
     parser.add_argument("-z", "--zip_file_name", default="reports.zip")
@@ -74,6 +72,15 @@ def main():
         )
 
     args = parser.parse_args()
+        # Get environment variables
+    bd_url = os.getenv("BD_URL")
+    bd_token = os.getenv("BD_TOKEN")
+
+    # Check if either is empty or None
+    if not bd_url or not bd_token:
+        print("Error: BD_URL or BD_TOKEN environment variable is not set or is empty.")
+        sys.exit(1)
+
     def download_report(bd_client, location, filename, retries=args.tries):
         report_id = location.split("/")[-1]
         base_url = bd_client.base_url if bd_client.base_url.endswith("/") else bd_client.base_url + "/"
@@ -101,10 +108,8 @@ def main():
         else:
             raise FailedReportDownload(f"Failed to retrieve report {report_id} after multiple retries")
 
-    with open(args.token_file, 'r') as tf:
-        access_token = tf.readline().strip()
 
-    bd = Client(base_url=args.bd_url, token=access_token, verify=args.verify)
+    bd = Client(base_url=bd_url, token=bd_token, verify=args.verify)
 
     params = {
         'q': [f"name:{args.project_name}"]
