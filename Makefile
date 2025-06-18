@@ -52,8 +52,8 @@ testrem:
 test: build
 	echo "===========Testing... make sure command is ->make test v=0.8.0 f=FILE==============="
 	pip uninstall -y bdvr
-	pip install dist/bdvr-0.9.1.tar.gz
-	pip install dist/bdvr-0.9.1.tar.gz
+	pip install dist/bdvr-${v}.tar.gz
+	pip install dist/bdvr-${v}.tar.gz
 	bdvr -h
 
 # bdvr -p ${f}
